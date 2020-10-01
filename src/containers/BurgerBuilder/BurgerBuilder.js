@@ -4,6 +4,8 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import instance from '../../axois-orders';
+import ErrorHandler from '../../hoc/Errorhandler/ErrorHandler';
 
 const INGREDIENT_PRICES = {
     salad: 0.5,
@@ -66,7 +68,27 @@ class BurgerBuilder extends Component {
         this.setState({purchasing: false})
     }
     purchaseContinueHandler = () => {
-        alert('Continue');
+        // const params = [];
+        // for(let i in this.state.ingredients) {
+        //     params.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        // }
+        // const queryString = params.join('&');
+        // this.props.history.push({
+        //     pathname: '/checkout',
+        //     abc: '?' + queryString
+        // })
+        const order = {
+            ingredients: this.state.ingredients,
+            price: this.state.totalPrice,
+            customer: {
+                name: 'Vineet',
+                address: 'Reservoir',
+                email: 'abc@gmail.com'
+            }
+        }
+        instance.post('/orders', order)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
     }
     render() {
         const disabledInfo = { ...this.state.ingredients};
@@ -95,4 +117,4 @@ class BurgerBuilder extends Component {
     };
 }
 
-export default BurgerBuilder;
+export default ErrorHandler(BurgerBuilder, instance);
