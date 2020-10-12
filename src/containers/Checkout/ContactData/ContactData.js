@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css';
+import instance from '../../../axois-orders';
 
 class ContactData extends Component {
     state = {
@@ -10,12 +11,25 @@ class ContactData extends Component {
             address: {
                 street: '',
                 postalCode: ''
-            }
+            },
+            price: 0
         }
     }
     orderHandler = (event) => {
         event.preventDefault();
-        console.log(this.props.ingredients)
+        const order = {
+            ingredients: this.props.ingredients,
+            price: this.props.price,
+            customer: {
+                name: 'Vineet',
+                address: 'Reservoir',
+                email: 'abc@gmail.com'
+            }
+        }
+        instance.post('/orders.json', order)
+            .then(response => {
+                this.props.history.push('/');
+            });
     }
     render() {
         return(

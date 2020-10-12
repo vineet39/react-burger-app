@@ -26,31 +26,31 @@ class BurgerBuilder extends Component {
         purchasable: false,
         purchasing: false
     }
-    checkIfPurchasable (ingredients) {
+    checkIfPurchasable(ingredients) {
         for (var key in ingredients) {
             if (ingredients.hasOwnProperty(key)) {
-                if(ingredients[key] > 0){
-                    this.setState({purchasable: true});
+                if (ingredients[key] > 0) {
+                    this.setState({ purchasable: true });
                     return;
                 }
             }
         }
-        this.setState({purchasable: false});
+        this.setState({ purchasable: false });
     }
-    addIngredientHandler = (type) =>  {
+    addIngredientHandler = (type) => {
         const updatedCount = this.state.ingredients[type] + 1;
         const updatedIngredients = {
             ...this.state.ingredients
         }
         updatedIngredients[type] = updatedCount;
         const newPrice = this.state.totalPrice + INGREDIENT_PRICES[type];
-        this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
         this.checkIfPurchasable(updatedIngredients);
     }
-    removeIngredientHandler = (type) =>  {
+    removeIngredientHandler = (type) => {
         const existingCount = this.state.ingredients[type];
         let updatedCount = 0;
-        if(existingCount > 0){
+        if (existingCount > 0) {
             updatedCount = existingCount - 1;
         }
         const updatedIngredients = {
@@ -58,54 +58,54 @@ class BurgerBuilder extends Component {
         }
         updatedIngredients[type] = updatedCount;
         const newPrice = this.state.totalPrice - INGREDIENT_PRICES[type];
-        this.setState({totalPrice: newPrice, ingredients: updatedIngredients});
+        this.setState({ totalPrice: newPrice, ingredients: updatedIngredients });
         this.checkIfPurchasable(updatedIngredients);
     }
     purchaseHandler = () => {
-        this.setState({purchasing: true})
+        this.setState({ purchasing: true })
     }
     purchaseCancelHandler = () => {
-        this.setState({purchasing: false})
+        this.setState({ purchasing: false })
     }
     purchaseContinueHandler = () => {
-        // const params = [];
-        // for(let i in this.state.ingredients) {
-        //     params.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-        // }
-        // const queryString = params.join('&');
-        // this.props.history.push({
-        //     pathname: '/checkout',
-        //     abc: '?' + queryString
-        // })
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Vineet',
-                address: 'Reservoir',
-                email: 'abc@gmail.com'
-            }
+        const params = [];
+        for(let i in this.state.ingredients) {
+            params.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         }
-        instance.post('/orders', order)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+        let queryString = params.join('&');
+        queryString = queryString + '&price=' + this.state.totalPrice;
+        this.props.history.push({
+            pathname: '/checkout',
+            abc: '?' + queryString
+        })
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Vineet',
+        //         address: 'Reservoir',
+        //         email: 'abc@gmail.com'
+        //     }
+        // }
+        // instance.post('/orders', order)
+        //     .then(response => console.log('Test ' + response));
     }
     render() {
-        const disabledInfo = { ...this.state.ingredients};
+        const disabledInfo = { ...this.state.ingredients };
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
-        return(
+        return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary 
-                        ingredients={this.state.ingredients} 
+                    <OrderSummary
+                        ingredients={this.state.ingredients}
                         purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler}/>
+                        purchaseContinued={this.purchaseContinueHandler} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients}></Burger>
-                <BuildControls 
-                    ingredientAdded={this.addIngredientHandler} 
+                <BuildControls
+                    ingredientAdded={this.addIngredientHandler}
                     ingredientRemoved={this.removeIngredientHandler}
                     disabled={disabledInfo}
                     price={this.state.totalPrice}

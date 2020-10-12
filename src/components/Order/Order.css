@@ -1,0 +1,25 @@
+.Order {
+    width: 500px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+.Test {
+    margin-right: 15px;
+    text-transform: uppercase;
+}
+
+.Colon {
+    margin-right: 5px;
+    margin-left: 2px;
+}
+
+@media (max-width: 500px) {
+    .Order {
+        width: 80%;
+    }
+}
