@@ -14,8 +14,10 @@
 }
 
 .Colon {
-    margin-right: 5px;
-    margin-left: 2px;
+    margin-right: 2px;
+    margin-left: 10px;
+    text-transform: lowercase;
+    font-weight: bold;
 }
 
 @media (max-width: 500px) {
