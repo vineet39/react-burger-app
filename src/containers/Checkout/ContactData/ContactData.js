@@ -5,6 +5,8 @@ import instance from '../../../axois-orders';
 import Input from '../../../components/UI/Input/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import Aux from '../../../hoc/Aux';
+import { connect } from 'react-redux';
+import { mapStateToProps } from '../../../store/storeProps';
 
 class ContactData extends Component {
     constructor() {
@@ -68,10 +70,6 @@ class ContactData extends Component {
             },
         }
     }
-    componentDidMount() {
-        console.log('ContactData props');
-        console.log(this.props);
-    }
     orderHandler = (event) => {
         event.preventDefault();
         if (this.validator.allValid()) {
@@ -79,9 +77,8 @@ class ContactData extends Component {
             for (let data in this.state.orderForm) {
                 formData[data] = this.state.orderForm[data].value;
             }
-            console.log(formData);
             const order = {
-                ingredients: this.props.ingredients,
+                ingredients: this.props.ings,
                 price: this.props.price,
                 orderData: formData
             }
@@ -126,7 +123,7 @@ class ContactData extends Component {
                                 value={f.config.value}
                                 changed={e => this.inputChangehandler(e, f.id)}
                                 className="form-control" />
-                            {f.config.elementType != "select" &&
+                            {f.config.elementType !== "select" &&
                                 <small className={classes.Error}>{this.validator.message(f.id, f.config.value, f.config.validation, { className: 'text-danger' })}</small>
                             }
                         </Aux>
@@ -139,4 +136,4 @@ class ContactData extends Component {
     };
 }
 
-export default ContactData;
+export default connect(mapStateToProps)(ContactData);

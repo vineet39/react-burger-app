@@ -13,7 +13,11 @@
 .Input:hover,
 .Input:active,
 .Input:focus,
-.Input:not(:placeholder-shown) {
+.Input:not(:placeholder-shown),
+.Select:hover,
+.Select:active,
+.Select:focus,
+.Select:not(:placeholder-shown) {
     outline: 0px !important;
     -webkit-appearance: none;
     box-shadow: none !important;

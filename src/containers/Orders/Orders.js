@@ -14,7 +14,6 @@ class Orders extends Component {
             .then(res => {
                 const fetchedOrders = [];
                 for (let key in res.data) {
-                    // console.log(res.data[key]);
                     fetchedOrders.push({ ...res.data[key], id: key });
                 }
                 this.setState({ orders: fetchedOrders });
