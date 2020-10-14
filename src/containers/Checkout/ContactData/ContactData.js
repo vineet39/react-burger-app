@@ -2,46 +2,138 @@ import React, { Component } from "react";
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css';
 import instance from '../../../axois-orders';
+import Input from '../../../components/UI/Input/Input';
+import SimpleReactValidator from 'simple-react-validator';
+import Aux from '../../../hoc/Aux';
 
 class ContactData extends Component {
+    constructor() {
+        super();
+        this.validator = new SimpleReactValidator();
+    }
     state = {
-        ingredients: {
-            name: '',
-            email: '',
-            address: {
-                street: '',
-                postalCode: ''
+        orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeHolder: 'Your name'
+                },
+                value: '',
+                validation: 'required'
             },
-            price: 0
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeHolder: 'Your street'
+                },
+                value: '',
+                validation: 'required'
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeHolder: 'Your zipcode'
+                },
+                value: '',
+                validation: 'required'
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeHolder: 'Your country'
+                },
+                value: '',
+                validation: 'required'
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeHolder: 'Your E-mail'
+                },
+                value: '',
+                validation: 'required|email'
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [{ value: 'fastest', displayValue: 'Fastest' }, { value: 'cheapest', displayValue: 'Cheapest' }]
+                },
+                value: '',
+                validation: ''
+            },
         }
+    }
+    componentDidMount() {
+        console.log('ContactData props');
+        console.log(this.props);
     }
     orderHandler = (event) => {
         event.preventDefault();
-        const order = {
-            ingredients: this.props.ingredients,
-            price: this.props.price,
-            customer: {
-                name: 'Vineet',
-                address: 'Reservoir',
-                email: 'abc@gmail.com'
+        if (this.validator.allValid()) {
+            const formData = {};
+            for (let data in this.state.orderForm) {
+                formData[data] = this.state.orderForm[data].value;
             }
+            console.log(formData);
+            const order = {
+                ingredients: this.props.ingredients,
+                price: this.props.price,
+                orderData: formData
+            }
+            instance.post('/orders.json', order)
+                .then(response => {
+                    this.props.history.push('/');
+                });
+        } else {
+            this.validator.showMessages();
+            this.forceUpdate();
         }
-        instance.post('/orders.json', order)
-            .then(response => {
-                this.props.history.push('/');
-            });
+    }
+    inputChangehandler = (event, id) => {
+        const updatedOrderForm = {
+            ...this.state.orderForm
+        }
+        const updatedFormElement = {
+            ...updatedOrderForm[id]
+        }
+        updatedFormElement.value = event.target.value;
+        updatedOrderForm[id] = updatedFormElement;
+        this.setState({ orderForm: updatedOrderForm });
+
     }
     render() {
-        return(
+        const formElementsArray = [];
+        for (let key in this.state.orderForm) {
+            formElementsArray.push({
+                id: key,
+                config: this.state.orderForm[key]
+            })
+        }
+        return (
             <div className={classes.ContactData}>
-               <h4>Enter your contact details</h4> 
-               <form>
-                    <input className={classes.Input} type="text" name="name" placeholder="Your name" />
-                    <input className={classes.Input} type="email" name="email" placeholder="Your email" />
-                    <input className={classes.Input} type="text" name="street" placeholder="Your street" />
-                    <input className={classes.Input} type="text" name="postal" placeholder="Postal Code" />
+                <h4>Enter your contact details</h4>
+                <form>
+                    {formElementsArray.map(f => (
+                        <Aux>
+                            <Input
+                                elementType={f.config.elementType}
+                                elementConfig={f.config.elementConfig}
+                                value={f.config.value}
+                                changed={e => this.inputChangehandler(e, f.id)}
+                                className="form-control" />
+                            {f.config.elementType != "select" &&
+                                <small className={classes.Error}>{this.validator.message(f.id, f.config.value, f.config.validation, { className: 'text-danger' })}</small>
+                            }
+                        </Aux>
+
+                    ))}
                     <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
-               </form>
+                </form>
             </div>
         );
     };

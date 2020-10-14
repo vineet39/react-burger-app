@@ -1,12 +1,13 @@
 .ContactData {
     margin: auto;
-    width: 500px;
+    width: 100%;
     text-align: center;
     box-shadow: 0 2px 3px #ccc;
-    border: 1px solid #eee;
+    /* border: 1px solid #eee; */
     padding: 10px;
     box-sizing: border-box;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .Burger {
@@ -19,18 +20,16 @@
     font-size: 1.2rem;
 }
 
-.Input {
+.Error {
+    color: red;
+    width: 90%;
+    margin: auto;
     display: block;
-    margin: 10px auto;
-    padding: 10px;
-    box-shadow: 0 2px 3px #ccc;
-    border: 1px solid #eee;
-    width: 300px;
 }
 
-@media (max-width: 500px) {
-    .Input,
+@media (max-height: 500px) {
     .ContactData {
-        width: 80%;
+        height: 90%;
+        overflow-y: scroll;
     }
 }

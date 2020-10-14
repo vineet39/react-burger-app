@@ -1,0 +1,49 @@
+.Input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    width: 90%;
+    text-decoration: none !important;
+    background-color: #ffffff!important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.Input:hover,
+.Input:active,
+.Input:focus,
+.Input:not(:placeholder-shown) {
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    background-color: #ffffff!important;
+    text-decoration: none !important;
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+.Select {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    width: 95%
+}
+
+
+/* @media (max-width: 500px) {
+    .Input {
+        width: 80%;
+    }
+    .Select {
+        width: 90%;
+    }
+} */
