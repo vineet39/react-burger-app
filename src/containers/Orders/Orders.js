@@ -4,7 +4,6 @@ import test from '../../axois-orders';
 import errorHandler from '../../hoc/Errorhandler/ErrorHandler';
 
 class Orders extends Component {
-    // _isMounted = false;
     state = {
         orders: [],
         loading: true

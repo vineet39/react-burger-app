@@ -1,4 +1,4 @@
-import * as actionTypes from './actions';
+import * as actionTypes from './actions/burgerBuilder';
 
 export const mapStateToProps = state => {
     return {
@@ -9,7 +9,8 @@ export const mapStateToProps = state => {
 
 export const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded: (ingName) => dispatch({ type: actionTypes.ADD_INGREDIENT, ingredentName: ingName }),
-        onIngredientRemoved: (ingName) => dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredentName: ingName })
+        onIngredientAdded: (ingName) => dispatch(actionTypes.addIngridient(ingName)),
+        onIngredientRemoved: (ingName) => dispatch(actionTypes.removeIngridient(ingName)),
+        onInitIngredient: () => dispatch(actionTypes.initIngridients())
     }
 }

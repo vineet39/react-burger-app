@@ -10,7 +10,6 @@ const burger = (props) => {
     }).reduce((total, amount) => {
         return total.concat(amount);
     });
-    console.log(ingredients);
     if(ingredients.length ===0) {
         ingredients = <p>Please add some items</p>
     }

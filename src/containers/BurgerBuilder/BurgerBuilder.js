@@ -10,23 +10,12 @@ import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/storeProps';
 import { mapDispatchToProps } from '../../store/storeProps';
 
-const INGREDIENT_PRICES = {
-    salad: 0.5,
-    bacon: 0.4,
-    cheese: 1.3,
-    meat: 0.7
-}
-
 class BurgerBuilder extends Component {
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
-        totalPrice: 4,
         purchasing: false
+    }
+    componentDidMount() {
+        this.props.onInitIngredient();
     }
     checkIfPurchasable() {
         const ingredients = this.props.ings;
