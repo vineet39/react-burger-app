@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Button from '../../../components/UI/Button/Button';
 import classes from './ContactData.css';
-import instance from '../../../axois-orders';
 import Input from '../../../components/UI/Input/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import Aux from '../../../hoc/Aux';
 import { connect } from 'react-redux';
-import { mapStateToProps } from '../../../store/storeProps';
+import { mapDispatchToProps } from '../../../store/storeProps';
 
 class ContactData extends Component {
     constructor() {
@@ -82,10 +81,8 @@ class ContactData extends Component {
                 price: this.props.price,
                 orderData: formData
             }
-            instance.post('/orders.json', order)
-                .then(response => {
-                    this.props.history.push('/');
-                });
+            this.props.onPurchase(order);
+            this.props.history.push('/');
         } else {
             this.validator.showMessages();
             this.forceUpdate();
@@ -136,4 +133,4 @@ class ContactData extends Component {
     };
 }
 
-export default connect(mapStateToProps)(ContactData);
+export default connect(null, mapDispatchToProps)(ContactData);

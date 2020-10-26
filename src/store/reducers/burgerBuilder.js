@@ -7,7 +7,9 @@ const initialState = {
         cheese: 0,
         meat: 0
     },
-    totalPrice: 4
+    totalPrice: 4,
+    error: false,
+    loaded: false
 };
 
 const INGREDIENT_PRICES = {
@@ -41,7 +43,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 ingredients: action.ingredients,
-                totalPrice: 4
+                totalPrice: 4,
+                loaded: true
+            };
+        case actionTypes.FETCH_INGREDIENTS_FAILED:
+            return {
+                ...state,
+                error: true
             };
         default:
             return state;

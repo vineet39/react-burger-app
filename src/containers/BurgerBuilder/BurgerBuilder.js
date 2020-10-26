@@ -9,6 +9,7 @@ import ErrorHandler from '../../hoc/Errorhandler/ErrorHandler';
 import { connect } from 'react-redux';
 import { mapStateToProps } from '../../store/storeProps';
 import { mapDispatchToProps } from '../../store/storeProps';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class BurgerBuilder extends Component {
     state = {
@@ -42,25 +43,41 @@ class BurgerBuilder extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0;
         }
+        let orderSummary = null;
+        let burger = <Spinner />;
+
+        if (this.props.error) {
+            burger = <Modal show={this.props.error}>Try refreshing the page</Modal>
+        }
+
+        if (this.props.ings && !this.props.error && this.props.loaded) {
+            burger = (
+                <Aux>
+                    <Burger ingredients={this.props.ings} />
+                    <BuildControls
+                        ingredientAdded={this.props.onIngredientAdded}
+                        ingredientRemoved={this.props.onIngredientRemoved}
+                        disabled={disabledInfo}
+                        purchasable={this.checkIfPurchasable()}
+                        ordered={this.purchaseHandler}
+                        price={this.props.price} />
+                </Aux>
+            );
+            orderSummary = <OrderSummary
+                ingredients={this.props.ings}
+                price={this.props.price}
+                purchaseCancelled={this.purchaseCancelHandler}
+                purchaseContinued={this.purchaseContinueHandler} />;
+        }
         return (
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
-                    <OrderSummary
-                        ingredients={this.props.ings}
-                        purchaseCancelled={this.purchaseCancelHandler}
-                        purchaseContinued={this.purchaseContinueHandler} />
+                    {orderSummary}
                 </Modal>
-                <Burger ingredients={this.props.ings}></Burger>
-                <BuildControls
-                    ingredientAdded={this.props.onIngredientAdded}
-                    ingredientRemoved={this.props.onIngredientRemoved}
-                    disabled={disabledInfo}
-                    price={this.props.price}
-                    purchasable={this.checkIfPurchasable()}
-                    ordered={this.purchaseHandler}
-                />
+                {burger}
             </Aux>
         );
+
     };
 }
 
