@@ -1,0 +1,36 @@
+.Login {
+    margin: auto;
+    width: 500px;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.Burger {
+    width: 500px;
+    margin: auto;
+    height: 50vh;
+    overflow: scroll;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.Error {
+    color: red;
+    width: 90%;
+    margin: auto;
+    display: block;
+}
+
+@media (max-width: 500px) {
+    .Login {
+        width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+}

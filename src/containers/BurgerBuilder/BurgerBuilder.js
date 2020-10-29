@@ -36,7 +36,10 @@ class BurgerBuilder extends Component {
         this.setState({ purchasing: false })
     }
     purchaseContinueHandler = () => {
-        this.props.history.push('/checkout')
+        if(this.props.isAuth)
+            this.props.history.push('/checkout')
+        else
+            this.props.history.push('/')
     }
     render() {
         const disabledInfo = { ...this.props.ings };
