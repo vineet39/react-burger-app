@@ -11,7 +11,7 @@ import { mapStateToProps } from '../../store/storeProps';
 import { mapDispatchToProps } from '../../store/storeProps';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
     state = {
         purchasing: false
     }
