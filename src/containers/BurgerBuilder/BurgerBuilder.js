@@ -37,9 +37,9 @@ export class BurgerBuilder extends Component {
     }
     purchaseContinueHandler = () => {
         if(this.props.isAuth)
-            this.props.history.push('/checkout')
+            this.props.history.push('/react-burger-app/checkout')
         else
-            this.props.history.push('/')
+            this.props.history.push('/react-burger-app')
     }
     render() {
         const disabledInfo = { ...this.props.ings };

@@ -4,9 +4,9 @@ import NavigationItem from './NavigationItem/NavigationItem';
 
 const navigationItems = (props) => (
     <ul className={classes.NavigationItems}>
-        <NavigationItem link="/burgerBuilder" >Burger Builder</NavigationItem>
-        {!props.isAuth ? null : <NavigationItem link="/orders">Orders</NavigationItem>}
-        {!props.isAuth ? <NavigationItem link="/auth">Login</NavigationItem> : <NavigationItem link="/logout">Logout</NavigationItem>}
+        <NavigationItem link="/react-burger-app/burgerBuilder">Burger Builder</NavigationItem>
+        {!props.isAuth ? null : <NavigationItem link="/react-burger-app/orders">Orders</NavigationItem>}
+        {!props.isAuth ? <NavigationItem link="/react-burger-app/auth">Login</NavigationItem> : <NavigationItem link="/react-burger-app/logout">Logout</NavigationItem>}
     </ul>
 );
 

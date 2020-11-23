@@ -9,8 +9,8 @@ class Logout extends Component {
         this.props.logout();
     }
     render() {
-        return (
-            <Redirect to="/" />
+        return ( <
+            Redirect to = "/react-burger-app/" / >
         );
     };
 }

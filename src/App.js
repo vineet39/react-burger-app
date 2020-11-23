@@ -16,12 +16,13 @@ class App extends Component {
   render() {
     return (
       <Layout>
-        <Route path="/burgerBuilder" component={BurgerBuilder} />
+        <Route path="/react-burger-app/burgerBuilder" component={BurgerBuilder} />
+        <Route path="/react-burger-app" exact component={Auth} />
         <Route path="/" exact component={Auth} />
-        <Route path="/checkout" component={CheckOut} />
-        <Route path="/orders" component={Orders} />
-        <Route path="/auth" component={Auth} />
-        <Route path="/logout" component={Logout} />
+        <Route path="/react-burger-app/checkout" component={CheckOut} />
+        <Route path="/react-burger-app/orders" component={Orders} />
+        <Route path="/react-burger-app/auth" component={Auth} />
+        <Route path="/react-burger-app/logout" component={Logout} />
       </Layout>
     );
   }

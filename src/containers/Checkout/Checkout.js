@@ -32,7 +32,7 @@ class Checkout extends Component {
                     checkoutContinued={this.checkoutContinued}
                     isDisabled={this.state.continueButtonDisabled}
                 />
-                <Route path={this.props.match.path + '/contact-data'}
+                <Route path={this.props.match.path + '/react-burger-app/contact-data'}
                     component={ContactData} />
             </div>
         )

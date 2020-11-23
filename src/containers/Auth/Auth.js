@@ -116,9 +116,9 @@ class Auth extends Component {
         }
         if (this.props.token !== null) {
             if(!this.props.building)
-                return <Redirect to="/burgerBuilder" />
+                return <Redirect to="/react-burger-app/burgerBuilder" />
             else
-                return <Redirect to="/checkout" />
+                return <Redirect to="/react-burger-app/checkout" />
         }
         return (
             <Aux>{ data }</Aux>
