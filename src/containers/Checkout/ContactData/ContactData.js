@@ -82,7 +82,7 @@ class ContactData extends Component {
                 orderData: formData
             }
             this.props.onPurchase(order);
-            this.props.history.push('/');
+            this.props.history.push('/burgerBuilder');
         } else {
             this.validator.showMessages();
             this.forceUpdate();
