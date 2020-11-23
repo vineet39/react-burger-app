@@ -17,7 +17,7 @@ class App extends Component {
     return (
       <Layout>
         <Route path="/react-burger-app/burgerBuilder" component={BurgerBuilder} />
-        <Route path="/react-burger-app" exact component={Auth} />
+        <Route path="/react-burger-app/" exact component={Auth} />
         <Route path="/" exact component={Auth} />
         <Route path="/react-burger-app/checkout" component={CheckOut} />
         <Route path="/react-burger-app/orders" component={Orders} />
