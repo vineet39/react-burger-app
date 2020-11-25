@@ -17,7 +17,7 @@ https://vineet39.github.io/react-burger-app/
 * View orders 
 
 ## Tools, languages and frameworks used 
-ReactJS, Redux, HTML, CSS, npm package: simple-react-validator, Jest
+ReactJS, Redux, HTML, CSS, Firebase, npm package: simple-react-validator, Jest
 
 ## Known issues
 * Order contact form does not fit properly on mobile devices
