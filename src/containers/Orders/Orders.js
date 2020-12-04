@@ -12,7 +12,6 @@ const orders = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log('called');
             await test.get('/orders.json')
                 .then(res => {
                     const fetchedOrders = [];
