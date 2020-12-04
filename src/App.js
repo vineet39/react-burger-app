@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../src/components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 import CheckOut from './containers/Checkout/Checkout';
@@ -9,11 +9,10 @@ import Logout from './containers/Auth/Logout';
 import { connect } from 'react-redux';
 import * as authActionTypes from './store/actions/auth';
 
-class App extends Component {
-  componentDidMount(){
-    this.props.checkAuthState();
-  }
-  render() {
+const app = props => {
+  useEffect(() => {
+    props.checkAuthState();
+  }, [])
     return (
       <Layout>
         <Route path="/react-burger-app/burgerBuilder" component={BurgerBuilder} />
@@ -25,7 +24,6 @@ class App extends Component {
         <Route path="/react-burger-app/logout" component={Logout} />
       </Layout>
     );
-  }
 }
 const mapStateToProps = state => {
   return {
@@ -37,4 +35,4 @@ const mapDispatchToProps = dispatch => {
     checkAuthState: () => dispatch(authActionTypes.checkAuthState())
   }
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(app));
